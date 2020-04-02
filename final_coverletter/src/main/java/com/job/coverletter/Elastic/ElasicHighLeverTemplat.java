@@ -58,7 +58,7 @@ public class ElasicHighLeverTemplat {
 		
 		// DSL 쿼리문 값 적용
 		Map<String, Object> scriptParams = new HashMap<>();
-		scriptParams.put("size", 3);
+		scriptParams.put("size", 10);
 		scriptParams.put("from", dto.getFrom());
 		//scriptParams.put("_source", "[companyseq, imgurl, business, enddate, oneintro, mainfield, languages, companyname, location, salary, target]");
 		
@@ -123,17 +123,17 @@ public class ElasicHighLeverTemplat {
 	}
 	
 	public static void main(String[] args) {
-//	
-//		ElasicHighLeverTemplat test = new ElasicHighLeverTemplat();
-//		CompanyDto dto = new CompanyDto();
-//		dto.setBusiness("개발자");
-//		dto.setLanguages("java");
-//		dto.setFrom("0");
-//		
-//		String a = test.getGETQueryJson(dto);
-//		System.out.println(a);
-//		
-//		test.callSearchQuery(dto);
+	
+		ElasicHighLeverTemplat test = new ElasicHighLeverTemplat();
+		CompanyDto dto = new CompanyDto();
+		dto.setBusiness("웹프로그래밍 ");
+		//dto.setLanguages("java");
+		dto.setFrom("0");
+		
+		String a = test.getGETQueryJson(dto);
+		System.out.println(a);
+		
+		test.callSearchQuery(dto);
 		
 		
 		//List<String> sortList = new ArrayList<String>();

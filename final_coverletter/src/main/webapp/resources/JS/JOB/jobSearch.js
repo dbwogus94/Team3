@@ -1,10 +1,10 @@
-var page;		
-var startFrom;  	
-var range;		 	
-var startPage;	 	
-var endPage;	 	
-var totalPage;		
-var from;		 	
+var Gpage;		
+var GstartFrom;  	
+var Grange;		 	
+var GstartPage;	 	
+var GendPage;	 	
+var GtotalPage;		
+var Gfrom;		 	
 
 //글자수 자르기
 function StringCut(textLen, text){
@@ -100,11 +100,11 @@ function searchType(selectType){
 function companySearch(page, startPage, from, startFrom, range){
 	console.log("page: " + page, "startPage: " + startPage, "from: " + from, "startFrom: " + startFrom, "range: " + range)
 	
-	page = page;			//현재 페이지번호
-	startPage = startPage;	// 시작 페이지 번호
-	range = range;			// 시작 1쪽
-	from = from;			// 결과값 시작 index
-	startFrom = startFrom;	// 현재 쪽의 결과값 시작 index
+	Gpage = page;			//현재 페이지번호
+	GstartPage = startPage;	// 시작 페이지 번호
+	Grange = range;			// 시작 1쪽
+	Gfrom = from;			// 결과값 시작 index
+	GstartFrom = startFrom;	// 현재 쪽의 결과값 시작 index
 	endPage = startPage + 9 
 	
 	var business =  document.getElementById("business").value
@@ -197,13 +197,15 @@ function creatPageBtn_etc(clickPage, startPage, endPage) {
 
 //비동기 페이지 버튼생성
 function pagination_etc(butNum){
+	
+	
 	var pageArea = document.getElementsByClassName("pagination")[0]
 	var li = document.createElement("li")
 	if(butNum == page){	
 		li.setAttribute("class", "page-item active")
 	}
 	pageArea.appendChild(li)
-	li.innerHTML = "<a class='page-link' href='#' onclick='companySearch(" + butNum + ", " + startPage + ", " + ((butNum*10)-10) + ", " + startFrom + ", " + range + ")'>" + butNum + "</a>"
+	li.innerHTML = "<a class='page-link' href='#' onclick='companySearch(" + GbutNum + ", " + GstartPage + ", " + ((butNum*10)-10) + ", " + GstartFrom + ", " + Grange + ")'>" + butNum + "</a>"
 	
 }
 
@@ -214,7 +216,7 @@ function next_etc() {
 	var li = document.createElement("li")
 	li.setAttribute("class", "page-item")
 	pageArae.appendChild(li)
-	li.innerHTML = "<a class='page-link' href='#' onclick='companySearch(" + (startPage + 10) + ", " + (startPage + 10) + ", " + (startFrom + 100) + ", "+ (startFrom + 100) + ", " + (range + 1) + ")'>" + "Next" + "</a>"
+	li.innerHTML = "<a class='page-link' href='#' onclick='companySearch(" + (GstartPage + 10) + ", " + (GstartPage + 10) + ", " + (GstartFrom + 100) + ", "+ (GstartFrom + 100) + ", " + (Grange + 1) + ")'>" + "Next" + "</a>"
 	
 }
 
@@ -224,7 +226,7 @@ function prev_etc() {
 	var li = document.createElement("li")
 	li.setAttribute("class", "page-item")
 	pageArae.appendChild(li)
-	li.innerHTML = "<a class='page-link' href='#' onclick='companySearch(" + (startPage - 10) + ", " + (startPage + 10) + ", " + (startFrom - 100) + ", "+ (startFrom - 100) +", "+ (range - 1) + ")'>" + "Previous" + "</a>"
+	li.innerHTML = "<a class='page-link' href='#' onclick='companySearch(" + (GstartPage - 10) + ", " + (GstartPage + 10) + ", " + (GstartFrom - 100) + ", "+ (GstartFrom - 100) +", "+ (Grange - 1) + ")'>" + "Previous" + "</a>"
 	
 }
 
