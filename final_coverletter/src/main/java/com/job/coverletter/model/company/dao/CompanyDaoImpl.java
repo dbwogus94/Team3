@@ -36,9 +36,9 @@ public class CompanyDaoImpl implements CompanyDao {
 	}
 
 	@Override
-	public List<CompanyDto> selectList_cnt20() {
+	public List<CompanyDto> selectList_cnt20(int startList) {
 
-		return sqlSessionTemPlateMariaDB.selectList(NAMESPACE + "selectList_cnt20");
+		return sqlSessionTemPlateMariaDB.selectList(NAMESPACE + "selectList_cnt20", startList);
 	}
 
 	@Override

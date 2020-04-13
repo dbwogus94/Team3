@@ -29,9 +29,9 @@ public class CompanyBizImpl implements CompanyBiz {
 	}
 
 	@Override
-	public List<CompanyDto> selectList_cnt20() {
+	public List<CompanyDto> selectList_cnt20(int startList) {
 
-		return companydao.selectList_cnt20();
+		return companydao.selectList_cnt20(startList);
 	}
 
 	@Override

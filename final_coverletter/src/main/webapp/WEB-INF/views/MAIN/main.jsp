@@ -46,7 +46,6 @@
 		<div id="MaintopDiv">
 			<h1 class="title animated  bounce delay-1s duration-3s">자소서 성공 패키지</h1>
 		</div>
-
 		
 		<div class="company">
 			<h5 class="h5" >- 웹 개발자 -</h5>
@@ -70,20 +69,13 @@
 								<div class="business">${list_web.business}</div>
 							</div>
 						</div>
-
-
-
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</div>
 
-
-		
 		<div class="company">
 			<h5 class="h5">- 프론트앤드 -</h5>
-
-
 		<c:choose>
 				<c:when test="${empty list_front}">
 					<h3>--데이터가 비었습니다--</h3>
@@ -107,11 +99,7 @@
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-
-
-
 		</div>
-
 		<div class="company">
 			<h5 class="h5">- 백앤드 -</h5>
 			<c:choose>
@@ -133,15 +121,9 @@
 								<div class="business">${list_back.business}</div>
 							</div>
 						</div>
-
-
-
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-
-
-
 
 		</div>
 
@@ -150,7 +132,7 @@
 
 				<h5 class="h5">- 전체 -</h5>
 
-
+				
 				<c:choose>
 					<c:when test="${empty list_cnt20}">
 						<h5 class="h5">==================== 데이터가 없습니다. ===================</h5>
@@ -170,19 +152,19 @@
 									<div class="business">${companyDto.business}</div>
 								</div>
 							</div>
-
-
-
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</article>
-
+	
 	</div>
-
-
-
-
+	<div class="container" id="bottom">
+		<div class="row">
+			<div class="col-md-12">
+				<input type="button" id="scrollButton" value="▽ 더보기" onclick="scrollPaging();">
+			</div>
+		</div>
+	</div>
 </body>
 </html>

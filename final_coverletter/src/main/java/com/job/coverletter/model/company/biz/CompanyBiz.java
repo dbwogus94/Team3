@@ -21,7 +21,7 @@ public interface CompanyBiz {
 
 	//회사목록
 
-	public List<CompanyDto> selectList_cnt20();
+	public List<CompanyDto> selectList_cnt20(int startList);
 	
 	//회사 채용진행 정보를 위한 그룹번호
 	

@@ -1,60 +1,103 @@
 //Javascript
-var count = 0;
-// 스크롤 바닥 감지
-window.onscroll = function(e) {
-	// 추가되는 임시 콘텐츠
-	// window height + window scrollY 값이 document height보다 클 경우,
-	if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-		// 실행할 로직 (콘텐츠 추가)
-		count++;
-		
+
+//var lastScrollTop = 0;
+//var delta = 5;
+//var fixBox = document.getElementById("totalCompany");
+//var fixBoxHeight = document.body.offsetHeight;
+//var didScroll;
+var count = 0
+
+function scrollPaging() {
+		count++
+		console.log(count)
 		$.ajax({
-			url : "MAIM_mainAjax.do",
+			url : "MAIN_scrollPaging.do",
 			type : "POST",
+			data:{startList : count * 40},
 			dataType : "JSON",
 			success : function(data) {
-				$.each(data, function(index, item){
+				let companyList = data.res
+				let totalCompany = document.getElementById("totalCompany")
+				for(let i = 0; i<companyList.length; i++){
+					let dto = companyList[i]
+					
+					// dom 생성
+					let totalCompanyItem = document.createElement("div")
+					totalCompanyItem.setAttribute("class", "totalCompanyItem")
+					
+					// companyItemTop 생성 시작
+					let companyItemTop = document.createElement("div")
+					companyItemTop.setAttribute("class", "companyItemTop")
+					
+					let a = document.createElement("a")
+					a.setAttribute("href", "MAIN_mainDetail.do?companyseq="+dto.companyseq)
+					
+					let img = document.createElement("img")
+					img.setAttribute("class", "companyImg2")
+					img.setAttribute("src", dto.imgurl)
 				
-			})
- 
+					a.appendChild(img)
+					
+					companyItemTop.appendChild(a)
+					
+					// companyItemBottom 생성 시작 
+					let companyItemBottom = document.createElement("div")
+					companyItemBottom.setAttribute("class", "companyItemBottom")
+					
+					let companyname = document.createElement("div")
+					companyname.setAttribute("class", "companyname")
+					companyname.textContent = dto.companyname
+					
+					let business = document.createElement("div")
+					business.setAttribute("class", "business")
+					business.textContent = dto.business
+					
+					companyItemBottom.appendChild(companyname)
+					companyItemBottom.appendChild(business)
+					
+					totalCompanyItem.appendChild(companyItemTop)
+					totalCompanyItem.appendChild(companyItemBottom)
+					
+					// 본문에 추가
+					totalCompany.append(totalCompanyItem)
+				}
 			},
 			error : function() {
 				alert("통신 실패");
 			}
 		})
+}
 
-		var companyItemTop = document.createElement("div")
-		companyItemTop.setAttribute("class", "companyItemTop")
 
-		// var a = document.createElement("a")
-		// a.setAttribute("href", "MAIN_mainDetail.do?companyseq="+companyseq)
-		// companyItemTop.appendChild(a)
 
-		// var totalCompanyItem = document.createElement("div")
-		// totalCompanyItem.setAttribute("class", "totalCompanyItem")
-		//
-		// var companyItemTop = document.createElement("div")
-		// companyItemTop.setAttribute("class", "companyItemTop")
-		//
-		// var a = document.createElement("a")
-		// a.setAttribute("href", "MAIN_mainDetail.do?companyseq=" + companyseq)
-		//
-		// totalCompanyItem.appendChild(companyItemTop)
-		// companyItemTop.appdendChid(a)
 
-		// $('article').append(totalCompanyItem);
 
-		// var addContent = '<div class="col-md-12">'+111+'</div>';
-		// article에 추가되는 콘텐츠를 append
-		// $('article').append(addContent);
-	}
-};
+// 페이징 스크롤 문제 발생 :
+// 스크롤 바닥감지후 추가가 된 만큼 스크롤이 위로 올라가야 하지만 계속 밑에 고정되어 있어 데이터가 모두 나올때 까지 쉬지 않고 나온다. 현재 버튼으로 스크롤 처리함
 
-// Javascript
-var lastScrollTop = 0;
-var delta = 5;
-var fixBoxHeight = fixBox.offsetHeight;
-var didScroll;
+/*
+window.onscroll = function(e) {
+	var count = 0;
+	// 추가되는 임시 콘텐츠
+	// 스크롤 바닥 감지     
+	// window height + window scrollY 값이 document height보다 클 경우,
+	if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+		count++;
+		scrollPaging(count)
+	}	
+		
+//	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+//	     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+//	    	 count++
+//	    	 scrollPaging(count)
+//	     } 
+//	});
+
+
+}
+*/
+
+/*
 // 스크롤 이벤트
 window.onscroll = function(e) {
 	didScroll = true;
@@ -84,4 +127,4 @@ window.onscroll = function(e) {
 		lastScrollTop = nowScrollTop;
 	}
 
-}
+}*/

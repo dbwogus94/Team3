@@ -48,7 +48,7 @@ insert into company values(NEXT VALUE for companyseq02, 0, '회사이름', '이�
 
 select * from company order by companyseq desc;
 
-select * from company02; 
+select * from company; 
 
 SELECT COMPANYSEQ,COMPANYNAME,IMGURL,ONEINTRO,BUSINESS
 FROM COMPANY02 WHERE BUSINESS LIKE CONCAT('%','백엔드','%')  ORDER BY RAND() LIMIT 4
@@ -60,7 +60,28 @@ companyseq, groupno, companyname, imgurl, oneintro,
 business, mainbusiness, jobdetail , salary, target, languages, enddate, intro,
 givetool, selfgrowth, mealtime, holiday, workinghour, insurance,
 incorporation, totalmember, homepage, location, mainfield
-FROM company02;	
+FROM company;	
+
+
+-- 중복된 그룹중 제일 처음것 가져오기
+select * from company 
+group by GROUPNO ORDER BY COMPANYSEQ desc
+
+
+-- 그룹번호 별로(회사별로) 내림차순으로  ROWNUM
+select R1.* FROM(
+SELECT COMPANYSEQ,COMPANYNAME,IMGURL,ONEINTRO,BUSINESS
+FROM COMPANY 
+group by GROUPNO ORDER BY GROUPNO desc) R1
+
+-- 8개씩 가져오기
+select R1.* FROM(
+SELECT COMPANYSEQ, GROUPNO, COMPANYNAME,IMGURL,ONEINTRO,BUSINESS
+FROM COMPANY 
+group by GROUPNO ORDER BY COMPANYSEQ desc) R1
+limit 20 OFFSET 0  -- 0 20 40 >>>
+
+
 
 
 

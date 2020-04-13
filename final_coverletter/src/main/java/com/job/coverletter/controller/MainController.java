@@ -55,8 +55,8 @@ public class MainController {
 	@RequestMapping(value = "/MAIN_main.do", method = RequestMethod.GET)
 	public String selectOne(Model model) {
 
-		// 전체화면 20개
-		List<CompanyDto> list_cnt20 = companyBiz.selectList_cnt20();
+		// 전체화면 20개 순서대로 회사별로 0번부터 출력
+		List<CompanyDto> list_cnt20 = companyBiz.selectList_cnt20(0);
 		model.addAttribute("list_cnt20", list_cnt20);
 
 		// 웹 분야 4개
@@ -75,10 +75,24 @@ public class MainController {
 		return "MAIN/main";
 	}
 
+	@RequestMapping(value = "/MAIN_scrollPaging.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, List<CompanyDto>> mainAjax(int startList) {
+		logger.info("MAIN_scrollPaging.do");
+		
+		List<CompanyDto> companyList = companyBiz.selectList_cnt20(startList);
+		Map<String, List<CompanyDto>> res = new HashMap<String, List<CompanyDto>>();
+		res.put("res", companyList);
+		
+		return res;
+	}
+	
+	
 	/* 회사가 가지고있는 채용정보를 그룹넘버 불러 옴 */
 	@RequestMapping(value = "/MAIN_mainDetail.do", method = RequestMethod.GET)
 	public String selectOne(Model model, int companyseq) {
-
+		logger.info("MAIN_mainDetail.do");
+		
 		CompanyDto selectOne = companyBiz.selectOne(companyseq);
 		List<CompanyDto> selectAll_group = companyBiz.selectAll_group(selectOne.getGroupno());
 
@@ -86,28 +100,17 @@ public class MainController {
 		model.addAttribute("selectAll_group", selectAll_group);
 
 		return "MAIN/mainDetail";
-
 	}
 
 	@RequestMapping(value = "/MAIN_kakaomap.do", method = RequestMethod.GET)
 	public String kakaomap(Model model, int companyseq) {
+		logger.info("MAIN_kakaomap.do");
 
 		CompanyDto kakaomap_selectOne = companyBiz.selectOne(companyseq);
-
 		model.addAttribute("kakaomap_selectOne", kakaomap_selectOne);
-
 		return "MAIN/kakaomap";
-
 	}
 
-	@RequestMapping(value = "/MAIM_mainAjax.do", method = RequestMethod.GET)
-	public String mainAjax(Model model) {
-		
-		List<CompanyDto> mianAjax = new ArrayList<CompanyDto>();
-
-		return "MAIN/main";
-
-	}
 
 	/*-------------------------후원하기-------------------------*/
 	@RequestMapping(value = "/MAIN_pay.do")
