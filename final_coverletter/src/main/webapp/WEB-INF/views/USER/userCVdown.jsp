@@ -99,7 +99,6 @@
 				</table>
 				<input type="button" id="deleteSub" class="btn" value="삭제"
 					onclick="deleteSubmit();">
-					<a href="USER_userCVDetail.do">이동</a>
 			</form>
 		</div>
 		<!-- 글목록 영역 끝 -->

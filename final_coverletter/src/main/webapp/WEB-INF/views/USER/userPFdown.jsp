@@ -89,7 +89,7 @@
                               <td class="board-date"><fmt:formatDate
                                     value="${dto.regdate}" pattern="yy-MM-dd HH:mm" /></td>
                               <td class="board-down"><input type="button" class="btn"
-                                 value="이동하기" onclick="location.href='PFwrite.do?groupno=${dto.groupno }'"></td>
+                                 value="이동하기" onclick="location.href='USER_userPFDetail.do?groupno=${dto.groupno }'"></td>
                            </tr>
                         </c:forEach>
                      </c:otherwise>

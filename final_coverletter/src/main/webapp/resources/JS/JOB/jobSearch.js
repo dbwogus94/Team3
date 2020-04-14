@@ -324,6 +324,7 @@ function companySearch(page, startPage, from, startFrom, range){
 	var jsonKey = {
 					  from : from,		// 다음 요청 시작번호
 					  business : keyWord
+					  //companyname : keyWord
 				   }
 	console.log(jsonKey)
 	
@@ -534,7 +535,8 @@ function creatDiv(companyseq, imgurl, business, enddate, oneintro, mainfield, la
 	button.setAttribute("class", "btn_compnay")
 	button.setAttribute("value", "기업정보")
 	
-	company_right.innerHTML = '<input type="button" class="btn_compnay" value="기업정보" onclick="location.href=\'MAIN_kakaomap.do?companyseq=${dto.companyseq}\'"/>'
+	company_right.innerHTML += '<input type="button" class="btn_compnay" value="기업정보" onclick="location.href=\'MAIN_kakaomap.do?companyseq=' +companyseq+'\'"/>'
+	
 	
 	//company_right 영역 추가
 	companyDiv_10.appendChild(company_right)

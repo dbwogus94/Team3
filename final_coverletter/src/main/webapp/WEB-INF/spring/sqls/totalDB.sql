@@ -10,8 +10,8 @@ CREATE TABLE JOINUSER
     JOINEMAIL    VARCHAR2(200)    NOT NULL, 
     JOINNAME     VARCHAR2(200)    NOT NULL, 
     JOINPW       VARCHAR2(200)    NOT NULL, 
-    JOINBIRTH    CHAR(8)          NOT NULL, 
-    JOINSEX      CHAR(1)          NOT NULL, 
+    JOINBIRTH    CHAR(8), 
+    JOINSEX      CHAR(1), 
     PHOTO        VARCHAR2(500), 
     MILILTARY    VARCHAR2(100), 
     PHONE        CHAR(13), 
@@ -24,9 +24,16 @@ CREATE TABLE JOINUSER
 SELECT * FROM JOINUSER;
 
 INSERT INTO JOINUSER(JOINSEQ,JOINEMAIL,JOINNAME,JOINPW,JOINBIRTH,JOINSEX, SINGUP )
-VALUES(JOIN_SEQ.NEXTVAL, 'yeo@gmail.com', '여정현', 'abc', '19960829', 'F', 'Y');
+VALUES(JOIN_SEQ.NEXTVAL, 'abc@naver.com', '테스터', 'abc', '19960829', 'M', 'Y');
 
+INSERT INTO JOINUSER(JOINSEQ,JOINEMAIL,JOINNAME,JOINPW,JOINBIRTH,JOINSEX, SINGUP )
+VALUES(JOIN_SEQ.NEXTVAL, 'abcd@naver.com', '테스터1', 'abcd', '', '', 'Y');
 
+UPDATE JOINUSER SET SINGUP = 'Y'
+WHERE JOINEMAIL = 'abc@naver.com';
+
+DELETE FROM JOINUSER
+WHERE JOINEMAIL = '94dbwogus@naver.com';
 
 --======================================================================================================
 --기존 학력 테이블 + 기존 스킬 테이블 하나의 테이블로 변경, + 유저정보는 세션에서 사용  
@@ -131,7 +138,6 @@ SELECT B.*
 DROP SEQUENCE TOTAL_SEQ;
 DROP SEQUENCE COVERLETTER_SEQ;
 DROP SEQUENCE PORTFOLIO_SEQ;
-
 DROP TABLE COVERLETTER;
 
 
@@ -150,30 +156,42 @@ CREATE TABLE COVERLETTER
     JOINEMAIL         VARCHAR2(200)     NOT NULL,    -- 이메일
     CVCATEGORY        VARCHAR2(30)      NOT NULL,    -- 카테고리
     GROUPSEQ          NUMBER            NOT NULL,    -- 자소서, 포폴용 각각의 시퀀스
-    GROUPNO            NUMBER         NOT NULL,    -- 그룹번호
+    GROUPNO           NUMBER,    					 -- 그룹번호
     QUESTION          VARCHAR2(1000),                -- 자: 항목(질문), 포: 수행기간
     TITLE             VARCHAR2(500)     NOT NULL,    -- 자: 제목, 포: 프로젝트명
-    SUBTITLE          VARCHAR2(500),                 -- 지: 소제목, 포: 개발목표
-    CONTENT           VARCHAR2(3000),                -- 지: 내용, 포: 개발환경
-    FUNCTIONS        VARCHAR2(3000),               -- 포: 구현기능
-    POSITIONS        VARCHAR2(2000),             -- 포: 담당역할
-    PARTICIPATION     VARCHAR2(1000),             -- 포: 참여도
-    FUNCTIONINFO     VARCHAR2(3000),             -- 포: 기능설명
-    VIEWINFO        VARCHAR2(3000),              -- 포: 화면설명
-    REGDATE           DATE             NOT NULL,      -- 작성일
-    FILEPATH          VARCHAR2(1000),             -- 포 : 이미지 경로
+    SUBTITLE          VARCHAR2(500),                 -- 자: 소제목, 포: 개발목표
+    CONTENT           VARCHAR2(3000),                -- 자: 내용, 포: 개발환경
+    FUNCTIONS         VARCHAR2(3000),                -- 포: 구현기능
+    POSITIONS         VARCHAR2(2000),                -- 포: 담당역할
+    PARTICIPATION     VARCHAR2(1000),                -- 포: 참여도
+    FUNCTIONINFO      VARCHAR2(3000),                -- 포: 기능설명
+    VIEWINFO          VARCHAR2(3000),                -- 포: 화면설명
+    REGDATE           DATE              NOT NULL,    -- 작성일
+    FILEPATH          VARCHAR2(1000),                -- 포 : 이미지 경로
     CONSTRAINT COVERLETTER_PK PRIMARY KEY (TOTALSEQ),
     CONSTRAINT COVERLETTER_CK01 CHECK (CVCATEGORY IN('자소서','포폴')),
     CONSTRAINT COVERLETTER_TABLE_FK01 FOREIGN KEY(JOINEMAIL) REFERENCES JOINUSER(JOINEMAIL)
 );
 
 //포폴 추가 예시
-INSERT INTO COVERLETTER VALUES(TOTAL_SEQ.NEXTVAL, 'abc@naver.com', '포폴', PORTFOLIO_SEQ.NEXTVAL, 0,
-       '수행기간','프로젝트명','개발목표','개발환경','구현기능','담당역할','참여도','기능설명','화면설명',SYSDATE,'경로')
+INSERT INTO COVERLETTER 
+VALUES(
+	   TOTAL_SEQ.NEXTVAL, 'abc@naver.com', '포폴', PORTFOLIO_SEQ.NEXTVAL, 0,'수행기간(QUESTION)','프로젝트명(TITLE)','개발목표(SUBTITLE)','개발환경(CONTENT)',
+       '구현기능(FUNCTIONS)','담당역할(POSITIONS)','참여도(PARTICIPATION)','기능설명(FUNCTIONINFO)','화면설명(VIEWINFO)', 
+       SYSDATE,'경로');
+      
+INSERT INTO COVERLETTER(TOTALSEQ, JOINEMAIL, CVCATEGORY, GROUPSEQ, GROUPNO, QUESTION, TITLE, SUBTITLE, CONTENT, FUNCTIONS, POSITIONS, PARTICIPATION, FUNCTIONINFO, VIEWINFO, REGDATE, FILEPATH) 
+VALUES(
+	   TOTAL_SEQ.NEXTVAL, 'abc@naver.com', '포폴', PORTFOLIO_SEQ.NEXTVAL, 0,'수행기간(QUESTION)','프로젝트명(TITLE)','개발목표(SUBTITLE)','개발환경(CONTENT)',
+       '구현기능(FUNCTIONS)','담당역할(POSITIONS)','참여도(PARTICIPATION)','기능설명(FUNCTIONINFO)','화면설명(VIEWINFO)', 
+       SYSDATE,'경로');
 
 SELECT * FROM COVERLETTER;
 
-DELETE FROM COVERLETTER WHERE groupno=1
+
+SELECT * FROM COVERLETTER 
+WHERE CVCATEGORY = '포폴' AND JOINEMAIL = 'abc@naver.com' AND GROUPNO = 1
+
 
 --=====================================================================================================================
 -- 채용일정 캘린더

@@ -254,7 +254,6 @@ public class JobController {
 			}
 			String name = file.getOriginalFilename();
 
-//	            이름과 설명을 넘김.
 			System.out.println("----------------------------------------");
 
 			System.out.println("file = " + file.getSize());
