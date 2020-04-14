@@ -35,7 +35,7 @@
 					<h3>1. 인적사항</h3>
 					<div class="col-md-1" id="photo">사진업로드</div>
 					<div id="p_up">
-							<f:input path="joinname" id="small" cssClass="col-md-4 form-control" placeholder ="이름" readonly="true"/>
+							<f:input path="joinname" id="small" cssClass="col-md-4 form-control" placeholder ="이름"/>
 							<f:input path="joinbirth" id="big" cssClass="col-md-4 form-control" placeholder ="생년월일(yyyyMMdd)"/>
 							<f:select path="joinsex" id="small" cssClass="col-md-4 form-control">
 								<f:option value="성별"></f:option>

@@ -15,14 +15,14 @@ function idpwcheck() {
 
 // 이메일 인증 팝업
 function checkid() {
-	window.open("USER_emailcheckpopup_login.do", "",
+	window
+			.open("USER_emailcheckpopup_login.do", "",
 					"width=500px,height=500px");
 	chk01 = true
 }
 
 // 일반 로그인
 function login() {
-
 	var joinemail = $("#joinemail").val().trim();
 	var joinpw = $("#joinpw").val().trim();
 	// console.log("joinemail : " + joinemail + " / joinpw : " + joinpw);
@@ -52,7 +52,6 @@ function login() {
 					$("#error").show();
 					$("#error").html("ID 혹은 PW가 잘못되었습니다.");
 				}
-
 			},
 			error : function() {
 				alert("통신 실패");
@@ -60,7 +59,6 @@ function login() {
 		});
 	}
 }
-
 function modal() {
 	$('#modal').modal('show');
 	$("#M_error").hide();
@@ -91,8 +89,7 @@ window.onload = function() {
 }
 
 
-//sns로그인===================================================
-
+// post 방식으로 전송하는 메서드
 function postSend(path, params, method) {
 	method = method || "post";
 	var form = document.createElement("form");
@@ -112,92 +109,54 @@ function postSend(path, params, method) {
 	form.submit();
 }
 
+//sns로그인===================================================
 function kakao() {
-	
-	Kakao.init('2faf3269d40b39fedcc93272389d1f56');
-	Kakao.Auth.loginForm({		
-		
-		success : function (authObj) {
-			
-			 Kakao.API.request({
-               url: '/v2/user/me',
-	           success: function(res) {
-	        	   console.log(res);
-	        	   
-	        	   var kakaoemail = res.kakao_account.email;
-	        	   var joinname = res.kakao_account.profile.nickname;
-	        	   var joinpw = "kakao123";
-	        	   var joinbirth = res.kakao_account.birthday;
-	        	   var joinsex = res.kakao_account.gender;
-	        	   var params = {"joinemail" : kakaoemail};
-	        	   
-		      	   var paramslogin = {
-		        			   "joinemail" : kakaoemail,
-		        			   "joinpw" : joinpw
-		        	}; 
-		      	   
-		      	   if(joinsex === "female"){
-		      		 joinsex = "f"
-		      	   }else if(joinsex === "male") {
-		      		   joinsex = "m"
-		      	   }
-		      	   
-		      	   var paramsjoin = {
-	        			   "joinemail" : kakaoemail,
-	        			   "joinname" : joinname,
-	        			   "joinpw" : joinpw,
-	        			   "joinbirth" : joinbirth,
-	        			   "joinsex" : joinsex
-	        	   }; 
-		      	   
-		      	   console.log(paramsjoin);
-		      	   
-		      	   postSend("USER_snslogin.do", paramsjoin,"post");
-	
-		      	   
-//					$.ajax({
-//						type : "post",
-//						url : "USER_emailcheck.do",
-//						data : {
-//							joinemail : kakaoemail
-//						},
-//					//	contentType : "application/json",
-//						dataType : "text",
-//						success : function(res2) {
-//							if (res2 === "중복") {
-//								console.log(res2);
-//								$.ajax({
-//									type : "post",
-//									url : "USER_loginAjax.do",
-//									data : JSON.stringify(paramslogin),
-//									contentType : "application/json",
-//									dataType : "json",
-//									success : function(msg) {
-//
-//										if (msg.check == true) {
-//											location.href = "MAIN_main.do"
-//										}
-//
-//									},
-//									error : function() {
-//										alert("로그인 통신 실패");
-//									}
-//								});
-//							} else if (res2 === "사용가능") {
-//								postSend("USER_joinRes.do", paramsjoin);
-//							}
-//						},
-//						error : function() {
-//							alert("중복체크 통신실패");
-//						}
-//					});
+	Kakao.init('9f7a7d3a273350b18a01ba15bdae8c67');
+	Kakao.Auth.loginForm({
+		success : function(authObj) {
+			Kakao.API.request({
+				url : '/v2/user/me',
+				success : function(res) {
+					console.log(res);
+					var kakaoemail = res.kakao_account.email;
+					var joinname = res.kakao_account.profile.nickname;
+					var joinpw = "kakao123";
+					var joinbirth = res.kakao_account.birthday;
+					var joinsex = res.kakao_account.gender;
+					var params = {
+						"joinemail" : kakaoemail
+					};
+					
+					var paramslogin = {
+						"joinemail" : kakaoemail,
+						"joinpw" : joinpw
+					};
+					
+					if (joinsex === "female") {
+						joinsex = "f"
+					} else if (joinsex === "male") {
+						joinsex = "m"
+					}
 
-					console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
+					var paramsjoin = {
+						"joinemail" : kakaoemail,
+						"joinname" : joinname,
+						"joinpw" : joinpw,
+						"joinbirth" : joinbirth,
+						"joinsex" : joinsex
+					};
+
+					console.log(paramsjoin);
+
+					console.log(res.id);// <---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에 res.id 로 불러온다)
 					console.log(res.kakao_account.email);
 					console.log(res.kakao_account.birthday);
 					console.log(res.kakao_account.gender);
-					console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
-					console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
+					console.log(res.properties['nickname']);// <---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근
+					console.log(authObj.access_token);// <---- 콘솔 로그에 토큰값 출력
+
+					// post전송
+					postSend("USER_snslogin.do", paramsjoin, "post");
 				}
 			})
 		},
@@ -205,64 +164,46 @@ function kakao() {
 			alert(JSON.stringify(error));
 		}
 	});
-
 }
 
-
-//구글 로그인
+// 구글 로그인
 function onSignIn(googleUser) {
-	
-
 	var profile = googleUser.getBasicProfile();
-	console.log(profile);
-	var joinemail = profile.getEmail();
-	var joinname = profile.getName();
-	var joinparams = {
-			"joinemail" : joinemail,
-			"joinname" : joinname,
-	}
-	var loginparams = {
-			"joinemail" : joinemail,
-			"joinpw" : "asd123"
+
+	var paramsjoin = {
+		"joinemail" : profile.getEmail(),
+		"joinname" : profile.getName(),
+		"joinpw" : profile.getId(),
+		"joinbirth" : '',
+		"joinsex" : ''
 	};
 	
-	$.ajax({
-		type : "post",
-		url : "USER_emailcheck.do",
-		data : {
-			joinemail : joinemail
-		},
-		dataType : "text",
-		success : function(res2) {
-			if (res2 === "중복") {
-				alert("로그인");
-				console.log(res2);
-				$.ajax({
-					type : "post",
-					url : "USER_loginAjax.do",
-					data : JSON.stringify(loginparams),
-					contentType : "application/json",
-					dataType : "json",
-					success : function(msg) {
-
-						if (msg.check == true) {
-							location.href = "MAIN_main.do"
-						}
-
-					},
-					error : function() {
-						alert("로그인 통신 실패");
-					}
-				});
-			} else if (res2 === "사용가능") {
-				alert("필수항목 입력");
-				postSend("USER_joinRes.do", joinparams);
-			}
-		},
-		error : function() {
-			alert("중복체크 통신실패");
-		}
+	// 구글계정를 로그인 하자마자 정보만 사용하고 계정 만료시킬때 사용
+	/*	
+	var auth2 = gapi.auth2.getAuthInstance(); // 현재 로그인된 정보 받아오기
+	auth2.signOut().then(function() { // 로그아웃 실행
+		console.log('Usersigned out.');
 	});
+	auth2.disconnect(); // 구글 강제 로그아웃
+	 */
 
+	// 서버에 정보 post 전송
+	postSend("USER_snslogin.do", paramsjoin, "post");
+	
+	
+	// 구글이 지원하는 토큰을 직접 서버로 보내는 로직 >>> awt에 주로 사용된다.
+	/*  
+	// 성공적으로 로그인후 내 사이트의 서버로 보낼 토큰을 얻는다
+	var id_token = googleUser.getAuthResponse().id_token;
+	
+	// 서버로 토큰을 보낸다
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'https://yourbackend.example.com/tokensignin'); // 내 서버로 url 입력 
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onload = function() {
+	  console.log('Signed in as: ' + xhr.responseText);
+	};
+	xhr.send('idtoken=' + id_token);
+	*/
 }
 

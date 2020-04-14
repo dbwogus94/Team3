@@ -10,6 +10,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/CSS/ALL/header_login.css">
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/JS/ALL/header_login.js"></script>
+<!-- google -->
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="879634557485-v55qv49tpffgt0ujgmeq6glvtpa8lfmc.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<!-- kakao -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -25,7 +33,7 @@
                <span><a href="JOB_jobCenter.do">취업센터</a></span>
                <span><a href="BOARD_boardList.do">자유게시판</a></span>
                <span >|</span>
-               <span><a href="USER_logout.do">로그아웃</a></span>
+               <span><a onclick="logoutGo();">로그아웃</a></span>
             </div>    
    </div>
 

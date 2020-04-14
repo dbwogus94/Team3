@@ -6,6 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- google -->
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="879634557485-v55qv49tpffgt0ujgmeq6glvtpa8lfmc.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- kakao -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- include bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

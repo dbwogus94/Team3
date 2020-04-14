@@ -64,7 +64,7 @@
                   </tr>
                   <tr>             
                      <th>비밀번호 확인*</th>
-                     <td class="joininfo"><input class="form-control" type="text" name="joinpw2" placeholder="비밀번호를 확인하세요"/></td>
+                     <td class="joininfo"><input class="form-control" type="password" name="joinpw2" placeholder="비밀번호를 확인하세요"/></td>
                   </tr>
                   <tr>
                   <th></th>

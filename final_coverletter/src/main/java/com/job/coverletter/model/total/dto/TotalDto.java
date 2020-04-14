@@ -139,7 +139,7 @@ public class TotalDto {
     @NotEmpty(message = "전공을 입력해주세요.")
     private String major;
     
-    @Pattern(regexp = "^[1-3][.]\\d{1}?$|[4][.][0-5]{1}?$",message = "학점은 4.5 형태로 입력해주세요")
+    @Pattern(regexp = "^[0-3][.]\\d{1}?$|[4][.][0-5]{1}?$",message = "학점은 4.5 형태로 입력해주세요")
     private String grade;
 
  // ----------------------JoinUserDto--------------------------

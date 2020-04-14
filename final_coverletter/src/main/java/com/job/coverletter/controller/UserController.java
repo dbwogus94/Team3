@@ -75,9 +75,6 @@ public class UserController {
    private CoverLetterBiz coverletterBiz;
 
    @Autowired
-   private SkillBiz skillBiz;
-   
-   @Autowired
    private QnaBoardBiz qnaboardbiz;
 
    // ==================================================================================
@@ -114,53 +111,8 @@ public class UserController {
          int res = joinUserBiz.insertUser(dto);
 
          if (res > 0) {
-
-            // 가입한 유저정보 불러오기
-            JoinUserDto userDto = joinUserBiz.login(dto);
-
-            TotalDto totalDto = new TotalDto();
-            totalDto.setJoinseq(userDto.getJoinseq());
-            totalDto.setJoinemail(userDto.getJoinemail());
-            totalDto.setJoinname(userDto.getJoinname());
-            totalDto.setJoinpw(userDto.getJoinpw());
-            totalDto.setJoinbirth(userDto.getJoinbirth());
-            totalDto.setJoinsex(userDto.getJoinsex());
-            totalDto.setPhoto("");
-            totalDto.setMililtary("");
-            totalDto.setPhone("");
-            totalDto.setAddress("");
-            totalDto.setKakao("");
-            totalDto.setSingup(dto.getSingup());
-            // totalDto.setSkillseq(0);
-            totalDto.setCategory("");
-            totalDto.setItskill1("");
-            totalDto.setItskill2("");
-            totalDto.setItskill3("");
-            totalDto.setItskill4("");
-            totalDto.setItskill5("");
-            totalDto.setItscore1("");
-            totalDto.setItscore2("");
-            totalDto.setItscore3("");
-            totalDto.setItscore4("");
-            totalDto.setItscore5("");
-            totalDto.setCertificate("");
-            totalDto.setLanguagename("");
-            totalDto.setLanguagescore("");
-            totalDto.setLanguageregdate("");
-            totalDto.setContest("");
-            totalDto.setPrize("");
-            totalDto.setOrganization("");
-            totalDto.setStartorganization("");
-            totalDto.setRegdate("");
-            // totalDto.setSchoolseq(0);
-            totalDto.setCareer("");
-            totalDto.setSchoolname("");
-            totalDto.setAdmission("");
-            totalDto.setGraduate("");
-            totalDto.setMajor("");
-            totalDto.setGrade("");
-
-            int totalRes = totalBiz.ToTalInsert(totalDto);
+        	// setTotalDto() => 가입시킨 유저정보를 사용하여 TotalDto생성
+            int totalRes = totalBiz.ToTalInsert(setTotalDto(dto));
 
             if (totalRes > 0) {
                logger.info("Total 테이블 추가 성공");
@@ -199,7 +151,6 @@ public class UserController {
 
       if (res != "중복") {
          return res;
-
       } else {
          return res;
       }
@@ -218,19 +169,18 @@ public class UserController {
    public Map<String, Boolean> loginAjax(HttpSession session, @RequestBody JoinUserDto dto) {
 
       logger.info("login ajax로 넘겨주는 controller : " + dto);
-
+      
       JoinUserDto loginDto = joinUserBiz.login(dto);
 
       boolean check = false;
 
       if (loginDto != null) {
          session.setAttribute("login", loginDto);
+         logger.info("login session 추가 =>>>>>>>>>>>>>>>>>>" + session.getAttribute("login")); 
          check = true;
       }
-
       Map<String, Boolean> map = new HashMap<String, Boolean>();
       map.put("check", check);
-
       return map;
    }
 
@@ -238,8 +188,8 @@ public class UserController {
    @RequestMapping(value = "/USER_snslogin.do", method = RequestMethod.POST)
    public String snslogin(HttpSession session, JoinUserDto dto) {
       logger.info("sns로그인");
-      logger.info("=========dto: " + dto.getJoinemail());
-
+      logger.info("=========dto: " + dto);
+      
       JoinUserDto onelogin = joinUserBiz.selectOne(dto.getJoinemail());
       logger.info("******onelogin: " + onelogin);
 
@@ -247,14 +197,24 @@ public class UserController {
       logger.info("login:" + snslogin);
 
       if (onelogin != null) {
-         session.setAttribute("snslogin", snslogin);
-         return "MAIN/main";
-
+         session.setAttribute("login", snslogin);
+         logger.info("sns login session 추가 =>>>>>>>>>>>>>>>>>>" + session.getAttribute("login")); 
+         return "redirect:MAIN_main.do";
       } else {
          int snsjoin = joinUserBiz.insertUser(dto);
          if (snsjoin > 0) {
-            session.setAttribute("snslogin", snslogin);
-            return "MAIN/main";
+        	logger.info("insert =========================> sns최초 로그인 insert success");
+        	int res = totalBiz.ToTalInsert(setTotalDto(dto)); 
+        	if(res > 0) {
+        		logger.info("TotalDto insert =========================> totalDto insert success");
+        		session.setAttribute("login", snslogin);
+        		logger.info("sns login session 추가 =>>>>>>>>>>>>>>>>>>" + session.getAttribute("login")); 
+        		return "redirect:MAIN_main.do";
+        	} else {
+        		// 완벽하게 하려면 추가된 joinUserDto 삭제해야함 biz에서 트렌젝션 처리
+        		logger.info("TotalDto insert =========================> totalDto insert fail");
+        		return "MAIN/login";
+        	}
          } else {
             return "MAIN/login";
          }
@@ -280,7 +240,7 @@ public class UserController {
       } else {
          logger.info("비밀번호 변경 실패");
          model.addAttribute("joinuserDto", dto);
-         return "MAIN/login";
+         return "redirect:MAIN_main.do";
       }
 
    }
@@ -292,7 +252,7 @@ public class UserController {
 
       session.invalidate();
 
-      return "MAIN/main";
+      return "redirect:MAIN_main.do";
    }
 
    /*-----------------------비밀번호 변경----------------------*/
@@ -320,12 +280,12 @@ public class UserController {
 
    /*----------------------회원탈퇴--------------------*/
    @RequestMapping(value = "USER_withdraw.do")
-   public String withdraw(HttpServletRequest request) {
-      String email = request.getParameter("email");
-      logger.info(email);
-      int res = joinUserBiz.deletejoinuser(email);
+   public String withdraw(HttpSession session) {
+      logger.info("USER_withdraw");
+      JoinUserDto userDto = (JoinUserDto) session.getAttribute("login");
+      int res = joinUserBiz.deletejoinuser(userDto.getJoinemail());
       if (res > 0) {
-         return "redirect:index.jsp";
+         return "redirect:MAIN_main.do";
       } else {
          return "USER_userMain.do";
       }
@@ -492,7 +452,7 @@ public class UserController {
    }
 
    
-   // 이력서 디테일
+   // 이력서 상세보기
    @RequestMapping(value="USER_userCVDetail.do", method=RequestMethod.GET)
    public String userCVDetail(Model model, String title, HttpSession session) {
 	   logger.info("userCVDetail");
@@ -519,8 +479,6 @@ public class UserController {
 	   
 	   return "USER/userCVDetail";
    }
-   
-   
    
    // 포트폴리오 게시판
    @RequestMapping(value = "/USER_userPFList.do")
@@ -558,6 +516,24 @@ public class UserController {
       return "redirect:/USER_userPFList.do";
    }
 
+   // 포토폴리오 상세보기 >>> dto + 작성페이지로
+   @RequestMapping(value="/USER_userPFDetail.do", method = RequestMethod.GET)
+   public String userPFDetail(Model model, int groupno, HttpSession session, CoverLetterDto dto) {
+	   logger.info("userPFwrite");
+	   
+	   JoinUserDto userDto = (JoinUserDto) session.getAttribute("login");
+	   
+	   dto.setJoinemail(userDto.getJoinemail());
+	   dto.setGroupno(groupno);
+	   
+	   List<CoverLetterDto> coverLetterList = coverletterBiz.PFselectGroupnoList(dto);
+	   
+	   model.addAttribute("coverLetterList", coverLetterList);
+	   return "USER/userPFwrite";
+   }
+   
+   
+   
    // 채용즐겨찾기 게시판
    @RequestMapping(value = "/USER_userJobList.do")
    public String BoardJobList(@ModelAttribute("JobCalendarDto") JobCalendarDto jobcalendarDto,
@@ -673,4 +649,66 @@ public class UserController {
 
       return map;
    }
+   
+   
+   
+   
+   public TotalDto setTotalDto(JoinUserDto dto) {
+	   // 가입한 유저정보 불러오기
+       JoinUserDto userDto = joinUserBiz.login(dto);
+
+       TotalDto totalDto = new TotalDto();
+       
+       // 카카오sns 로그인이 현재 값을 제대로 주지 않아서 처리한 로직임.
+       if(userDto.getJoinbirth() == null) {
+    	   userDto.setJoinbirth("");
+       }
+       if(userDto.getJoinsex() == null) {
+    	   userDto.setJoinsex("");
+       }
+       
+       totalDto.setJoinseq(userDto.getJoinseq());
+       totalDto.setJoinemail(userDto.getJoinemail());
+       totalDto.setJoinname(userDto.getJoinname());
+       totalDto.setJoinpw(userDto.getJoinpw());
+       totalDto.setJoinbirth(userDto.getJoinbirth());
+       totalDto.setJoinsex(userDto.getJoinsex());
+       totalDto.setPhoto("");
+       totalDto.setMililtary("");
+       totalDto.setPhone("");
+       totalDto.setAddress("");
+       totalDto.setKakao("");
+       totalDto.setSingup(dto.getSingup());
+       // totalDto.setSkillseq(0);
+       totalDto.setCategory("");
+       totalDto.setItskill1("");
+       totalDto.setItskill2("");
+       totalDto.setItskill3("");
+       totalDto.setItskill4("");
+       totalDto.setItskill5("");
+       totalDto.setItscore1("");
+       totalDto.setItscore2("");
+       totalDto.setItscore3("");
+       totalDto.setItscore4("");
+       totalDto.setItscore5("");
+       totalDto.setCertificate("");
+       totalDto.setLanguagename("");
+       totalDto.setLanguagescore("");
+       totalDto.setLanguageregdate("");
+       totalDto.setContest("");
+       totalDto.setPrize("");
+       totalDto.setOrganization("");
+       totalDto.setStartorganization("");
+       totalDto.setRegdate("");
+       // totalDto.setSchoolseq(0);
+       totalDto.setCareer("");
+       totalDto.setSchoolname("");
+       totalDto.setAdmission("");
+       totalDto.setGraduate("");
+       totalDto.setMajor("");
+       totalDto.setGrade("");
+       return totalDto;
+   }
+   
+   
 }

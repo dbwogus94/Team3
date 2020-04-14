@@ -44,7 +44,6 @@
 	</update>
 	
 	<!-- 회원탈퇴 -->
-
 	<update id="userdelete" parameterType="string">
 		UPDATE JOINUSER SET SINGUP = 'N'
 		WHERE JOINEMAIL = #{joinemail}
@@ -61,6 +60,6 @@
  	
  	<!-- 아이디중복확인 -->
  	<select id="checkEmail" parameterType="String" resultType="joinuserDto">
- 		SELECT JOINEMAIL FROM JOINUSER WHERE JOINEMAIL = #{joinemail}
+ 		SELECT JOINEMAIL FROM JOINUSER WHERE JOINEMAIL = #{joinemail} AND SINGUP = 'Y'
  	</select>
 </mapper>
