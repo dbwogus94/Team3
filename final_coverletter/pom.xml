@@ -190,16 +190,14 @@
 			<version>1.2</version>
 		</dependency>
 
-
-		<!-- 파일 업로드 다운로드 라이브러리 -->
+		<!-- 파일 업로드 다운로드 라이브러리  >> 다른것으로 바꿈 -->
 		<!-- https://mvnrepository.com/artifact/servlets.com/cos -->
-		<dependency>
-			<groupId>servlets.com</groupId>
-			<artifactId>cos</artifactId>
-			<version>05Nov2002</version>
-		</dependency>
-
-
+<!-- 		<dependency> -->
+<!-- 			<groupId>servlets.com</groupId> -->
+<!-- 			<artifactId>cos</artifactId> -->
+<!-- 			<version>05Nov2002</version> -->
+<!-- 		</dependency> -->
+		
 		<!-- json 관련 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/net.sf.ezmorph/ezmorph -->
 		<dependency>

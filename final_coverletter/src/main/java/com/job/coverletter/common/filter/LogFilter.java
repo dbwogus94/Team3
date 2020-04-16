@@ -1,7 +1,6 @@
 package com.job.coverletter.common.filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,17 +26,20 @@ public class LogFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request; // 형변환
 
-		String url = req.getRequestURL().toString();
-		String queryString = req.getQueryString();
-
-
+		String url = req.getRequestURL().toString(); 	// url 정보
+		String queryString = req.getQueryString();		// url에 사용된 쿼리스트링 값 
+		String sessionID = req.getRequestedSessionId(); // 현재 세션에 사용된 id
+		String referer = req.getHeader("referer");	    // 이전 url 정보
+		String agent = req.getHeader("User-Agent");     // 헤더정보    ex) Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36
+ 
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("url " + url + "\n")
 		  .append("queryString " + queryString + "\n")
-		  .append("content-type:" + req.getContentType() + "\n");
+		  .append("content-type:" + req.getContentType() + "\n")
+		  .append("==================== [Log Filter] END ===================" + "\n");
 		 
-		logger.info("LOG FILTER\n" + sb);
+		logger.info("\n=================== [Log Filter] START ==================\n" + sb);
 		chain.doFilter(req, response);
 		
 		/*

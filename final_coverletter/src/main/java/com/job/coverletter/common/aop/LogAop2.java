@@ -20,7 +20,6 @@ public class LogAop2 {
 	public Object logPrint(ProceedingJoinPoint proceedingJoinPint) throws Throwable{
 						//  @Around타입의 Advice메서드의 파라미터로 사용되는 인터페이스(JoinPoint의 하위 인테페이스)
 		
-		
 		long start = System.currentTimeMillis();
 		
 		Object result = proceedingJoinPint.proceed();
@@ -31,7 +30,7 @@ public class LogAop2 {
 		String name = "";
 		
 		if(type.contains("Controller")) {
-			name = "Controller : ";
+			name = "\nController : ";
 		} else if (type.contains("Biz")) {  //Service
 			name = "Biz : ";
 		} else if (type.contains("Dao")) {  // DAO
