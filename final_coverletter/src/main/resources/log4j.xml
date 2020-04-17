@@ -41,7 +41,7 @@
 	<logger name="java.sql">
 		<level value="info"/>
 	</logger>
-	
+
 
 
 	<!-- Root Logger (수정) root 태그는 전역설정 logger임-->

@@ -121,7 +121,6 @@
 	</div>
 
 
-	<script src="https://apis.google.com/js/platform.js?onload=init" async
-		defer></script>
+<!-- 	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
 </body>
 </html>

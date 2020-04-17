@@ -111,18 +111,18 @@ function postSend(path, params, method) {
 
 //sns로그인===================================================
 function kakao() {
-	Kakao.init('9f7a7d3a273350b18a01ba15bdae8c67');
-	Kakao.Auth.loginForm({
-		success : function(authObj) {
-			Kakao.API.request({
+	Kakao.init('9f7a7d3a273350b18a01ba15bdae8c67');  // #1 api 인증번호
+	Kakao.Auth.loginForm({							 
+		success : function(authObj) {				 // #2  카카오 측에 접속 성공했으면
+			Kakao.API.request({						 // #3 요청
 				url : '/v2/user/me',
-				success : function(res) {
-					console.log(res);
-					var kakaoemail = res.kakao_account.email;
+				success : function(res) {			 // #4 사용자가 로그인에 성공했으면 
+					console.log(res);				 // res >>> 토큰
+					var kakaoemail = res.kakao_account.email;			// 기본으로 가져올 수 있음
 					var joinname = res.kakao_account.profile.nickname;
 					var joinpw = "kakao123";
-					var joinbirth = res.kakao_account.birthday;
-					var joinsex = res.kakao_account.gender;
+					var joinbirth = res.kakao_account.birthday;			// 생일 : 가져오기 설정 및 >> 동의 받아야함
+					var joinsex = res.kakao_account.gender;				// 성별 : 가져오기 설정 및 >> 동의 받아야함
 					var params = {
 						"joinemail" : kakaoemail
 					};
@@ -167,8 +167,8 @@ function kakao() {
 }
 
 // 구글 로그인
-function onSignIn(googleUser) {
-	var profile = googleUser.getBasicProfile();
+function onSignIn(googleUser) {						// #1
+	var profile = googleUser.getBasicProfile();		// #2
 
 	var paramsjoin = {
 		"joinemail" : profile.getEmail(),

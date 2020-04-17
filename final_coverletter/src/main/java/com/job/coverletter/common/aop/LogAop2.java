@@ -17,15 +17,15 @@ public class LogAop2 {
 			+ " or execution(* com.job.coverletter..Biz..*Impl.*(..))"
 			+ " or execution(* com.job.coverletter..Dao..*Impl.*(..))")
 	// Pointcut을 지정하는 문법 (AspectJ 언어 문법을 사용한다)
-	public Object logPrint(ProceedingJoinPoint proceedingJoinPint) throws Throwable{
+	public Object logPrint(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
 						//  @Around타입의 Advice메서드의 파라미터로 사용되는 인터페이스(JoinPoint의 하위 인테페이스)
 		
 		long start = System.currentTimeMillis();
 		
-		Object result = proceedingJoinPint.proceed();
+		Object result = proceedingJoinPoint.proceed();
 									// 다음 Advice를 실행하거나, 실제 target객체의 메서드를 실행하는 기능을 가진 메서드
 		
-		String type = proceedingJoinPint.getSignature().getDeclaringTypeName();
+		String type = proceedingJoinPoint.getSignature().getDeclaringTypeName();
 									// getSignature() : 실행하는 대상 객체의 메서드에 대한 정보를 알고 싶을 때 사용한다.
 		String name = "";
 		
@@ -38,7 +38,7 @@ public class LogAop2 {
 		}
 		long end = System.currentTimeMillis();
 		
-		logger.info(name + type + "." + proceedingJoinPint.getSignature().getName()+ "()");
+		logger.info(name + type + "." + proceedingJoinPoint.getSignature().getName()+ "()");
 		logger.info("Running Time : " + (end - start));
 		logger.info("---------------------------------------------------------------------");
 		

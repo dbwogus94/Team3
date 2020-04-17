@@ -30,10 +30,10 @@ function kakaoLogout(){
 
 //카카오 계정 만료 >> 사이트와의 연결 끊기, 이것을 사용하면 매번 로그인시 카카오 계정 사용 동의 페이지가 로드됨
 function kakaoConnectionExpire(){
-	Kakao.init('9f7a7d3a273350b18a01ba15bdae8c67');
-	Kakao.API.request({				
-		url : '/v1/user/unlink',
-		success : function(response) {
+	Kakao.init('9f7a7d3a273350b18a01ba15bdae8c67');		// #1
+	Kakao.API.request({									// #2
+		url : '/v1/user/unlink',						// 계정 연동 끊는 명령 url
+		success : function(response) {				    // #3 결과 
 			console.log(response);
 		},
 		fail : function(error) {

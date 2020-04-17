@@ -73,8 +73,9 @@
                <div id="PFbtn">
                   <!-- <input type="button"  id="minus" onclick="minus(e);" style="float: left;  border: 0;" > -->
 <!--                      <input type="button" id="minus" value="삭제" onclick="minus(e);" style="float: left;  border: 0;"> -->
+                       <img alt="minus" onclick="plus(this);" src="resources/IMG/plus.jpg" style="width: 20px; height: 20px; margin-right: 20px;">
                        <img alt="minus" onclick="minus(this);" src="resources/IMG/minusbutton.png" style="width: 20px; height: 20px; margin-right: 20px;">
-                  <f:input  type="file" class="input_img" path="targets[0].fileUpload"/>
+                  <f:input multiple="multiple" type="file" class="input_img" path="targets[0].fileUpload"/>
                </div>
 
                <div id="PFcenter" style="display: flex;">

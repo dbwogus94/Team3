@@ -17,11 +17,9 @@ public class ErrorHandler {
 		modelAndView.addObject("exception", e);
 		modelAndView.setViewName("/error/exceptionPage");
 		
-		
 		// 해당 컨트롤러를 발전 시켜 각각 에러에 맞는 페이지를 띄우게 해야한다.
 		
 		return modelAndView;
 	}
-	
 	
 }

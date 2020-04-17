@@ -39,7 +39,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 					|| request.getRequestURI().contains("/USER_login.do")
 					|| request.getRequestURI().contains("/USER_snslogin.do")
 					|| request.getRequestURI().contains("/USER_emailcheckpopup_login.do")
-					|| request.getRequestURI().contains("/USER_changepw.do")) {
+					|| request.getRequestURI().contains("/USER_changepw.do")
+					|| request.getRequestURI().contains("/MAIN_scrollPaging.do")
+					|| request.getRequestURI().contains("/JOB_jobDetail.do")
+					|| request.getRequestURI().contains("/MAIN_kakaomap.do")) {
 				return true; // 로그인 안되어 있을때 접근 가능한 url만 컨트롤러로 보내어 정상흐름 실행.
 			// 허용 페이지 이외 로그인으로 보낸다.
 			} else {
