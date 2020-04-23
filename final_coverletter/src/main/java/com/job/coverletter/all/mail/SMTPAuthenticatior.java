@@ -7,7 +7,7 @@ public class SMTPAuthenticatior extends Authenticator {
 
     @Override
        protected PasswordAuthentication getPasswordAuthentication() {
-           return new PasswordAuthentication("woguswldnjs@naver.com","SMTPtest1234@");
+           return new PasswordAuthentication("woguswldnjs@naver.com","SMTPtest");
        }
 }
 
