@@ -251,7 +251,7 @@
 <!-- 		    <version>1.9.13</version> -->
 <!-- 		</dependency> -->
 	
-	<!-- 5.x.x 버전부터 해당 jackson 사용 -->
+	<!-- 4.x.x 버전부터 해당 jackson 사용 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>

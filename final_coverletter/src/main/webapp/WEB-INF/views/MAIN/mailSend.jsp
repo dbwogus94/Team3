@@ -52,7 +52,7 @@ try{
     StringBuffer buffer = new StringBuffer();
     buffer.append("인증코드: ");
     buffer.append(number+"<br>");
-    Address fromAddr = new InternetAddress("igs99275@naver.com");//보내는사람
+    Address fromAddr = new InternetAddress("woguswldnjs@naver.com");//보내는사람
     msg.setFrom(fromAddr); 
  
     Address toAddr = new InternetAddress(EmailName);// 받는 사람

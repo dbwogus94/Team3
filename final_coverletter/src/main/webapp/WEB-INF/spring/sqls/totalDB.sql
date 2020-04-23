@@ -96,6 +96,9 @@ WHERE JOINEMAIL = 'abc@naver.com';
 
 SELECT * FROM TOTAL;
 
+DELETE FROM TOTAL
+WHERE JOINEMAIL = '94dbwogus@naver.com';
+
 
 
 --======================================================================================================
@@ -192,6 +195,8 @@ SELECT * FROM COVERLETTER;
 SELECT * FROM COVERLETTER 
 WHERE CVCATEGORY = '포폴' AND JOINEMAIL = 'abc@naver.com' AND GROUPNO = 1
 
+DELETE FROM COVERLETTER 
+WHERE JOINEMAIL = '94dbwogus@naver.com';
 
 --=====================================================================================================================
 -- 채용일정 캘린더
