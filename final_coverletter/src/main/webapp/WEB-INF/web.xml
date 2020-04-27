@@ -52,6 +52,7 @@
 	</filter-mapping>
 
 
+	<!-- log필터 적용 -->
 	<filter>
 		<filter-name>logFilter</filter-name>
 		<filter-class>com.job.coverletter.common.filter.LogFilter</filter-class>

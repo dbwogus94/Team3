@@ -16,10 +16,7 @@ public class JoinUserDaoImpl implements JoinUserDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insertUser(JoinUserDto dto) {
-		
-		
-		
+	public int insertUser(JoinUserDto dto){
 		return sqlSession.insert("com.job.coverletter.JoinUser.joinuser",dto);
 	}
 

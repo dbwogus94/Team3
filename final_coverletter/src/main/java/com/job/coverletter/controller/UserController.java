@@ -90,7 +90,7 @@ public class UserController {
 
    // 회원가입 res
    @RequestMapping(value = "/USER_joinRes.do", method = RequestMethod.POST)
-   public String joinRes(Model model, @ModelAttribute("joinUserDto") @Valid JoinUserDto dto, BindingResult result) {
+   public String joinRes(Model model, @ModelAttribute("joinUserDto") @Valid JoinUserDto dto, BindingResult result) throws Exception {
       logger.info("joinRes.do");
 
       model.addAttribute("joinUserDto", dto);
@@ -140,6 +140,15 @@ public class UserController {
       logger.info("mailSend");
       model.addAttribute("EmailName", EmailName);
       return "MAIN/mailSend";
+      
+  		/*
+		 * 의문 : 
+		 * 1. emailChk.jsp에서  form태그의 action의로 /USER_mailSend.do url을 지정 값을 컨트롤러로 전달 
+		 * 2. 전달받은 값은 EmailName(인증번호 보낼 이메일)과 number(인증번호)이다.
+		 * 3. 하지만 컨트롤러에서 받아서 ModelAndVeiw로 전달한 값은 EmailName(인증번호 보낼 이메일) 뿐이다. 
+		 * 문제 >> 4. mailSend.jsp에서 보내지도 않은 number(인증번호)를 받아서 사용이 가능하다.
+		 * 추측 >> model에서 자동으로 값을 넘겨주고 있는것이 아닐까?
+		 */
    }
 
    // email중복체크
@@ -186,28 +195,31 @@ public class UserController {
 
    // sns로그인
    @RequestMapping(value = "/USER_snslogin.do", method = RequestMethod.POST)
-   public String snslogin(HttpSession session, JoinUserDto dto) {
+   public String snslogin(HttpSession session, JoinUserDto dto) throws Exception {
       logger.info("sns로그인");
       logger.info("=========dto: " + dto);
+      JoinUserDto login = null;
       
+      // 이메일로 가입 유무체크
       JoinUserDto onelogin = joinUserBiz.selectOne(dto.getJoinemail());
       logger.info("******onelogin: " + onelogin);
-
-      JoinUserDto snslogin = joinUserBiz.login(dto);
-      logger.info("login:" + snslogin);
-
+      
+      // 기존에 가입된 이메일 이면 >> 로그인
       if (onelogin != null) {
-         session.setAttribute("login", snslogin);
+    	 login = joinUserBiz.login(dto); 		// 로그인
+         session.setAttribute("login", login);	// 세션 할당
          logger.info("sns login session 추가 =>>>>>>>>>>>>>>>>>>" + session.getAttribute("login")); 
          return "redirect:MAIN_main.do";
+      // 새로운 유저라면 >> insert >> 로그인
       } else {
-         int snsjoin = joinUserBiz.insertUser(dto);
+         int snsjoin = joinUserBiz.insertUser(dto); // 추가
          if (snsjoin > 0) {
         	logger.info("insert =========================> sns최초 로그인 insert success");
-        	int res = totalBiz.ToTalInsert(setTotalDto(dto)); 
+        	int res = totalBiz.ToTalInsert(setTotalDto(dto)); // 토탈정보 추가
         	if(res > 0) {
         		logger.info("TotalDto insert =========================> totalDto insert success");
-        		session.setAttribute("login", snslogin);
+        		login = joinUserBiz.login(dto);		  // 로그인
+        		session.setAttribute("login", login); // 세션 할당
         		logger.info("sns login session 추가 =>>>>>>>>>>>>>>>>>>" + session.getAttribute("login")); 
         		return "redirect:MAIN_main.do";
         	} else {

@@ -21,10 +21,10 @@ CREATE TABLE JOINUSER
     CONSTRAINT USER_PK PRIMARY KEY (JOINEMAIL)
 );
 
-SELECT * FROM JOINUSER;
+SELECT * FROM JOINUSER ORDER BY JOINSEQ DESC;
 
 INSERT INTO JOINUSER(JOINSEQ,JOINEMAIL,JOINNAME,JOINPW,JOINBIRTH,JOINSEX, SINGUP )
-VALUES(JOIN_SEQ.NEXTVAL, 'abc@naver.com', '테스터', 'abc', '19960829', 'M', 'Y');
+VALUES(JOIN_SEQ.NEXTVAL, 'test@naver.com', '테스터', 'abc', '19960829', 'M', 'Y');
 
 INSERT INTO JOINUSER(JOINSEQ,JOINEMAIL,JOINNAME,JOINPW,JOINBIRTH,JOINSEX, SINGUP )
 VALUES(JOIN_SEQ.NEXTVAL, 'abcd@naver.com', '테스터1', 'abcd', '', '', 'Y');
@@ -33,7 +33,7 @@ UPDATE JOINUSER SET SINGUP = 'Y'
 WHERE JOINEMAIL = 'abc@naver.com';
 
 DELETE FROM JOINUSER
-WHERE JOINEMAIL = '94dbwogus@naver.com';
+WHERE JOINEMAIL = 'test@naver.com';
 
 --======================================================================================================
 --기존 학력 테이블 + 기존 스킬 테이블 하나의 테이블로 변경, + 유저정보는 세션에서 사용  

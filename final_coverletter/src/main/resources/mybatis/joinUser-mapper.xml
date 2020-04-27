@@ -26,7 +26,7 @@
  		<result property="singup" column="SIGNUP"/>
  	</resultMap>
  	
- 	<!--개인정보 -->
+ 	<!--개인정보 selectOne-->
  	<select id="loginuser" parameterType="string" resultType="joinuserDto">
  		SELECT * FROM JOINUSER WHERE JOINEMAIL = #{joinemail}
  	</select>
@@ -34,7 +34,7 @@
  	<!-- 회원가입 -->
  	<insert id="joinuser" parameterType="joinuserDto" >
  		INSERT INTO JOINUSER (JOINSEQ, JOINEMAIL, JOINNAME, JOINPW, JOINBIRTH, JOINSEX, SINGUP)
- 		VALUES (JOIN_SEQ.NEXTVAL, #{joinemail},#{joinname},#{joinpw},#{joinbirth},#{joinsex},'Y') 
+ 		VALUES (JOIN_SEQ.NEXTVAL, 'abc@naver.com', #{joinname}, #{joinpw}, #{joinbirth}, #{joinsex},'Y') 
  	</insert>
 	
 	<!-- 정보수정 -->

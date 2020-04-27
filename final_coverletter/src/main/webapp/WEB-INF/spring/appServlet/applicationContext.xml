@@ -118,7 +118,7 @@
     BoardServiceImpl,MemberServiceImpl...등 이런애들의 모든 메서드'.*(..)'
     -->
     <aop:config proxy-target-class="true">
-    	<aop:pointcut expression="execution(* com.job.coverletter.*.*.biz.*BizImpl.*(..))" id="servicePc"/>
+    	<aop:pointcut expression="execution(* com.job.coverletter..*BizImpl.*(..))" id="servicePc"/> 	<!-- 문제 : 재대로 작동하는것 같지 않음 -->
     	<!--transactionAdvisor: 위에 있는 내용들이 자동으로 실행 되게 해달라 
     							자동으로 commit을 시켜준다 
     	 -->

@@ -14,6 +14,9 @@
 </head>
 <%
 int RandomNumber=(int)(Math.floor(Math.random() * (9999-1000+1)) + 1000);
+
+System.out.println("인증번호 생성 >>>>>>>>>>>>>>>>>>>>>>> " + RandomNumber);
+
 %>
 <body>
 

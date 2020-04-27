@@ -41,6 +41,7 @@ p.put("mail.smtp.socketFactory.fallback", "false");
  
   
 try{
+	System.out.println("인증번호 확인 >>>>>>>>>>>>>>>>>>>>>>> " + number);
     Authenticator auth = new SMTPAuthenticatior();
     Session ses = Session.getInstance(p, auth);
       

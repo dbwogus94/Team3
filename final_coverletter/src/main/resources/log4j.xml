@@ -36,11 +36,11 @@
 
 	<!-- 추가 -->
 	<logger name="org.ibatis">
-		<level value="info"/>
+		<level value="INFO"/>
 	</logger>
 	
 	<logger name="java.sql">
-		<level value="info"/>
+		<level value="INFO"/>
 	</logger>
 
 

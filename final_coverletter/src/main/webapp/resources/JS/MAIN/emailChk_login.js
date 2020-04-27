@@ -7,9 +7,6 @@ function EmailChk() {
 }
 
 
-
-
-
 function EmailChk2(RandomNumber) {
    if (RandomNumber == document.getElementById("EmailCode").value) {
       alert("인증되었습니다.");

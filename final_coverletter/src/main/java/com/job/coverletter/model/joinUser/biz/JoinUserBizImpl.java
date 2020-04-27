@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.job.coverletter.all.TestException;
 import com.job.coverletter.model.joinUser.dao.JoinUserDao;
 import com.job.coverletter.model.joinUser.dto.JoinUserDto;
 
@@ -14,7 +16,6 @@ public class JoinUserBizImpl implements JoinUserBiz {
 
 	@Override
 	public int insertUser(JoinUserDto joinuser) {
-
 		return joinuserdao.insertUser(joinuser);
 	}
 
