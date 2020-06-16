@@ -82,9 +82,11 @@ public class BoardController {
 		JoinUserDto userDto = (JoinUserDto) session.getAttribute("login");
 		String login = userDto.getJoinemail();
 		
-		MultipartFile file = dto.getUploadFile();
-		if (file.getSize() != 0) {
-			String name = file.getOriginalFilename();
+		logger.info("dto 확인 >>>>>>>>>>>>>> " + dto);	// view에서 dto의 Multipartfile속성에 파일이 담겨져서 온다 
+		
+		MultipartFile file = dto.getUploadFile();	// 스프링에서 제공하는 인터페이스, dto(file)에서 multipartFile를 가져온다.	
+		if (file.getSize() != 0) {					// 파일이 들어왔다면
+			String name = file.getOriginalFilename();	
 			System.out.println("----------------------------------------");
 			System.out.println("file = " + file.getSize());
 			try {
@@ -95,7 +97,6 @@ public class BoardController {
 			}
 			System.out.println("name = " + name);
 
-
 //			이름과 설명을 넘김.
 
 			InputStream inputStream = null;
@@ -103,21 +104,22 @@ public class BoardController {
 
 			try {
 				inputStream = file.getInputStream();
-				// 경로
+				// 경로 >>> C:\final_project\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\final_coverletter\storage
 				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
 				System.out.println("upload real path : " + path);
 
 				File storage = new File(path);
 				if (!storage.exists()) {
-					storage.mkdir();
-				} // 해당 파일이 있으면 넘어간다.
+					storage.mkdir(); 		// 해당 경로에 폴더를 생성
+					//storage.mkdirs		// 해당 경로에 상위 폴더외 해당폴더를 모두 생성한다. 
+				} 
 
 				File newFile = new File(path + "/" + name);
 				if (!newFile.exists()) {
-					newFile.createNewFile();
-				} // 새로운 파일이 없으면
+					newFile.createNewFile();	// 파일객체의 주어진 경로  + 이름의 파일이 없으면 새로 생성한다.
+				}
 
-				outputStream = new FileOutputStream(newFile); // 업로드 되는 파일
+				outputStream = new FileOutputStream(newFile); // 새로만든 파일
 
 				int read = 0;
 				byte[] b = new byte[(int) file.getSize()];
@@ -258,10 +260,11 @@ public class BoardController {
 
 			File file = new File(path + "/" + name);
 
-			down = FileCopyUtils.copyToByteArray(file);
+			down = FileCopyUtils.copyToByteArray(file);		
 			String filename = new String(file.getName().getBytes(), "8859_1");
 
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+			//response.setContentType("application/octet-stream"); 			// # application/octet-stream는 다른 모든 경우를 위한 기본값입니다. ,알려지지 않은 파일 타입은 이 타입을 사용해야 합니다
 			response.setContentLength(down.length);
 
 		} catch (FileNotFoundException e) {

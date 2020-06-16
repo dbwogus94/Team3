@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <!-- google -->
 <meta name="google-signin-scope" content="profile email">
-<meta name="google-signin-client_id" content="879634557485-v55qv49tpffgt0ujgmeq6glvtpa8lfmc.apps.googleusercontent.com">
+<meta name="google-signin-client_id" content="839009669697-6ce1f5skpnk0s544iik3a5im8dktj7lc.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- kakao -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>

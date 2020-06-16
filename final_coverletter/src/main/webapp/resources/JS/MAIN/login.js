@@ -53,9 +53,12 @@ function login() {
 					$("#error").html("ID 혹은 PW가 잘못되었습니다.");
 				}
 			},
-			error : function() {
-				alert("통신 실패");
-			}
+			error : function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            var err=JSON.parse(request.responseText);
+	            
+	            alert(err.resData[0].errorMsg);
+			},
 		});
 	}
 }

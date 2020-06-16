@@ -173,7 +173,7 @@ public class UserController {
       return "MAIN/login";
    }
 
-   @RequestMapping(value = "/USER_loginAjax.do", method = RequestMethod.POST)
+   @RequestMapping(value = "/USER_loginAjax.do", method = RequestMethod.POST, produces = "application/json; charset=utf8", headers = "content-type=application/json")
    @ResponseBody
    public Map<String, Boolean> loginAjax(HttpSession session, @RequestBody JoinUserDto dto) {
 
@@ -206,7 +206,7 @@ public class UserController {
       
       // 기존에 가입된 이메일 이면 >> 로그인
       if (onelogin != null) {
-    	 login = joinUserBiz.login(dto); 		// 로그인
+    	 login = joinUserBiz.login(dto); 		// 로그인 id : pw
          session.setAttribute("login", login);	// 세션 할당
          logger.info("sns login session 추가 =>>>>>>>>>>>>>>>>>>" + session.getAttribute("login")); 
          return "redirect:MAIN_main.do";
@@ -401,16 +401,17 @@ public class UserController {
    // 인적사항 수정
    @RequestMapping(value = "/USER_detailRes.do", method = RequestMethod.POST)
    public String personal_insert(Model model, @ModelAttribute("totalDto") @Valid TotalDto dto, BindingResult result) {
-      if (result.hasErrors()) {
+      
+	   if (result.hasErrors()) {	// 유효성검사 에러존재 유무 확인
          logger.info("유효성검사 실패");
          logger.info(dto.getJoinname());
          logger.info(dto.getCertificate());
          logger.info(dto.getRegdate());
          List<ObjectError> list = result.getAllErrors();
-         for (ObjectError error : list) {
+         for (ObjectError error : list) {	// 에러 찍어보기
             System.out.println(error);
          }
-         return "USER/userDetail";
+         return "USER/userDetail";			// 에러메세지 보낼 페이지
       } else {
          logger.info("유효성 검사 통과");
          logger.info(dto.getCertificate());
@@ -678,7 +679,6 @@ public class UserController {
        if(userDto.getJoinsex() == null) {
     	   userDto.setJoinsex("");
        }
-       
        totalDto.setJoinseq(userDto.getJoinseq());
        totalDto.setJoinemail(userDto.getJoinemail());
        totalDto.setJoinname(userDto.getJoinname());

@@ -54,11 +54,10 @@
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				
-				field.children("#photo").children().children().attr('src',e.target.result);
+				field.children("#photo").children().children().attr('src', e.target.result);
 				console.log(field.children("#photo").children().children());
 			}
 			reader.readAsDataURL(f);
-
 		});
 	}
 	

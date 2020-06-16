@@ -54,9 +54,6 @@ public class Pagination {
 		// 총 게시글 수
 		setListCnt(listCnt);
 
-		// 총 페이지 수
-		setPageCnt(listCnt);
-
 		// 총 블록 수
 		setRangeCnt(pageCnt);
 
@@ -72,7 +69,7 @@ public class Pagination {
 
 	/*---------- 총 페이지 수  ----------*/
 	public void setPageCnt(int listCnt) {
-		this.pageCnt = (int) Math.ceil(listCnt * 1.0 / pageSize);
+		this.pageCnt = (int) Math.ceil(listCnt * 1.0 / pageSize);	// 소수점 올림
 	}
 
 	/*---------- 총 블록 수  ----------*/
@@ -103,6 +100,7 @@ public class Pagination {
 	/*---------- 쿼리문 작성을 위한 시작 인덱스  ----------*/
 	public void setStartIndex(int curPage) {
 		this.startIndex = ((curPage - 1) * pageSize);
+		// (1페이지 -1) * 10 = 0 >>> 0번부터 시작 >>> 쿼리문에서 +1을 해준다
 	}
 
 	public void setListCnt(int listCnt) {

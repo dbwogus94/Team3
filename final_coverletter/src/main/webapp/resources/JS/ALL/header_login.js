@@ -16,7 +16,7 @@ function signOut() {
 	var auth2 = gapi.auth2.getAuthInstance(); 
 	auth2.disconnect(); 			   // 구글 강제 로그아웃   #1  >> 먼저사용할 경우 다시 로그인클릭시 계정입력창이 뜬다
     auth2.signOut().then(function () { // 구글 로그아웃 실행   #2  >> 먼저 사용할 경우 다시 로그인클릭시 이전 계정으로 자동 로그인된다.
-      console.log('User signed out.');
+    	console.log('User signed out.');
     });			
 }
 

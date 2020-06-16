@@ -28,8 +28,7 @@
 	<%@ include file="../ALL/header_login.jsp"%>
 
 	<div class="container">
-		<f:form action="USER_detailRes.do" method="post"
-			modelAttribute="totalDto">
+		<f:form action="USER_detailRes.do" method="post" modelAttribute="totalDto">
 			<div class="center">
 				<div id="profile">
 					<h3>1. 인적사항</h3>

@@ -209,15 +209,15 @@ public class BoardDto {
 		this.keyword = keyword;
 	}
 
-    
-	
-
 	@Override
 	public String toString() {
 		return "BoardDto [boardseq=" + boardseq + ", groupno=" + groupno + ", groupseq=" + groupseq + ", titletab="
 				+ titletab + ", joinemail=" + joinemail + ", title=" + title + ", content=" + content + ", filepath="
-				+ filepath + ", regdate=" + regdate + "]";
+				+ filepath + ", regdate=" + regdate + ", uploadFile=" + uploadFile + ", StartIndex=" + StartIndex
+				+ ", CntPerPage=" + CntPerPage + ", curPage=" + curPage + ", category=" + category + ", keyword="
+				+ keyword + "]";
 	}
+
 
 
 

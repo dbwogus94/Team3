@@ -83,7 +83,7 @@
                   <div id="main" style="flex: 2; display: flex;">
                      <div id="photo" style="flex: 2;">
                         <div class="img_wrap" >
-                           화면이미지첨부 <img style="width: 100%; height: 100%;"/>
+                           	화면이미지첨부 <img style="width: 100%; height: 100%;"/>
                         </div>
                      </div>
                      <div id="between" style="flex: 0.1;"></div>
@@ -111,9 +111,7 @@
          <button id="plus" onclick="plus();">
             <img id="plusbtn" alt="plusbtn" src="resources/IMG/plus.jpg">
          </button>
-
       </div>
-      
    </div>
 </body>
 <script type="text/javascript">
