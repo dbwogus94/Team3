@@ -1,3 +1,4 @@
+
 //Javascript
 
 //var lastScrollTop = 0;
@@ -72,19 +73,21 @@ function scrollPaging() {
 
 
 
-// 페이징 스크롤 문제 발생 :
-// 스크롤 바닥감지후 추가가 된 만큼 스크롤이 위로 올라가야 하지만 계속 밑에 고정되어 있어 데이터가 모두 나올때 까지 쉬지 않고 나온다. 현재 버튼으로 스크롤 처리함
-
 /*
 window.onscroll = function(e) {
-	var count = 0;
+	//console.log(window.scrollY)
+	//var count = 0;
 	// 추가되는 임시 콘텐츠
 	// 스크롤 바닥 감지     
 	// window height + window scrollY 값이 document height보다 클 경우,
-	if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1) ) {
+		console.log("끝")
 		count++;
 		scrollPaging(count)
+		console.log(count)
 	}	
+	//document.body.scrollHeight
+	//document.body.offsetHeight
 		
 //	$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
 //	     if($(window).scrollTop() >= $(document).height() - $(window).height()){
@@ -93,9 +96,26 @@ window.onscroll = function(e) {
 //	     } 
 //	});
 
-
 }
 */
+
+
+window.addEventListener('scroll', () => {
+	let scrollLocation = document.documentElement.scrollTop; // 현재 스크롤바 위치
+	let windowHeight = window.innerHeight; // 스크린 창
+	let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+	console.log("a : " + scrollLocation)
+	console.log("b : " + windowHeight)
+	
+	console.log("a+b : " + (scrollLocation+windowHeight)) 
+	
+	console.log("c : " + fullHeight)
+	
+	
+	if(scrollLocation + windowHeight >= (fullHeight - 1)){
+		console.log('끝')
+	}
+})
 
 /*
 // 스크롤 이벤트
